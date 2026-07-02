@@ -1,10 +1,10 @@
-import Shell from "./components/layout/Shell";
+﻿import Shell from "./components/layout/Shell";
 import { useAppStore } from "./stores/appStore";
 import { useUIStore } from "./stores/useUIStore";
 import { useEffect } from "react";
 import * as ipc from "./bridge/ipc";
 import "./styles/global.css";
-// components.css deleted — HeroUI handles styling via Tailwind
+// components.css deleted 鈥?HeroUI handles styling via Tailwind
 
 export default function App() {
   const { settings, loadAll } = useAppStore();
