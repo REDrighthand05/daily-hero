@@ -4,7 +4,7 @@ import { useUIStore } from "./stores/useUIStore";
 import { useEffect } from "react";
 import * as ipc from "./bridge/ipc";
 import "./styles/global.css";
-import "./styles/components.css";
+// components.css deleted — HeroUI handles styling via Tailwind
 
 export default function App() {
   const { settings, loadAll } = useAppStore();

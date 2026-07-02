@@ -1,30 +1,33 @@
-import type { Tag } from "../../types";
-import { X } from "lucide-react";
-
-interface Props {
-  tag: Tag;
-  onRemove?: () => void;
-  onClick?: () => void;
-  size?: "sm" | "md";
-}
-
-export default function TagChip({ tag, onRemove, onClick, size = "md" }: Props) {
-  return (
-    <span
-      className={`tag-chip ${size}`}
-      style={tag.color ? { borderColor: tag.color, color: tag.color } : undefined}
-      onClick={onClick}
-    >
-      <span
-        className="tag-dot"
-        style={{ backgroundColor: tag.color || "#888" }}
-      />
-      {tag.name}
-      {onRemove && (
-        <button className="tag-remove" onClick={(e) => { e.stopPropagation(); onRemove(); }} title="Remove tag">
-          <X size={10} />
-        </button>
-      )}
-    </span>
-  );
-}
+ import type { Tag } from "../../types";
+ import { Chip } from "@heroui/react";
+ import { X } from "lucide-react";
+ 
+ interface Props {
+   tag: Tag;
+   onRemove?: () => void;
+   onClick?: () => void;
+   size?: "sm" | "md";
+ }
+ 
+ export default function TagChip({ tag, onRemove, onClick, size = "md" }: Props) {
+   const color = tag.color || "#888";
+   return (
+     <Chip
+       size={size}
+       variant="outline"
+       style={{ borderColor: color, color }}
+       className="cursor-pointer"
+       onClick={onClick}
+       endContent={onRemove ? (
+         <X
+           size={10}
+           className="cursor-pointer opacity-60 hover:opacity-100"
+           onClick={(e: React.MouseEvent) => { e.stopPropagation(); onRemove(); }}
+         />
+       ) : undefined}
+     >
+       <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: color }} />
+       {tag.name}
+     </Chip>
+   );
+ }

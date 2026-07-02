@@ -1,8 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+﻿import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useUIStore } from "../../stores/useUIStore";
 import { globalSearch } from "../../bridge/ipc";
 import type { SearchResultItem } from "../../types";
+import { Modal, Input, Button } from "@heroui/react";
 import { Search, FileText, Clipboard, X } from "lucide-react";
 
 export default function SearchOverlay() {
@@ -25,18 +26,9 @@ export default function SearchOverlay() {
     if (!globalSearchOpen) return;
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") { closeGlobalSearch(); return; }
-      if (e.key === "ArrowDown") {
-        setSelectedIdx((i) => Math.min(i + 1, globalSearchResults.length - 1));
-        e.preventDefault();
-      }
-      if (e.key === "ArrowUp") {
-        setSelectedIdx((i) => Math.max(i - 1, 0));
-        e.preventDefault();
-      }
-      if (e.key === "Enter" && globalSearchResults[selectedIdx]) {
-        navigate(globalSearchResults[selectedIdx]);
-        e.preventDefault();
-      }
+      if (e.key === "ArrowDown") { setSelectedIdx((i) => Math.min(i + 1, globalSearchResults.length - 1)); e.preventDefault(); }
+      if (e.key === "ArrowUp") { setSelectedIdx((i) => Math.max(i - 1, 0)); e.preventDefault(); }
+      if (e.key === "Enter" && globalSearchResults[selectedIdx]) { navigate(globalSearchResults[selectedIdx]); e.preventDefault(); }
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
@@ -64,58 +56,54 @@ export default function SearchOverlay() {
   const clipResults = globalSearchResults.filter((r) => r.source === "clipboard");
 
   return (
-    <div className="search-overlay" onClick={closeGlobalSearch}>
-      <div className="search-overlay-panel" onClick={(e) => e.stopPropagation()}>
-        <div className="search-overlay-input-wrap">
-          <Search size={16} className="search-overlay-icon" />
+    <div className="fixed inset-0 z-50 flex justify-center pt-20 bg-black/40" onClick={closeGlobalSearch}>
+      <div className="w-[90%] max-w-[560px] max-h-[60vh] flex flex-col overflow-hidden rounded-xl bg-[oklch(var(--heroui-content))] border border-default-200 shadow-2xl" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center gap-3 px-3 py-2 border-b border-default-200">
+          <Search size={16} className="text-default-500" />
           <input
             ref={inputRef}
-            className="search-overlay-input"
             value={globalSearchQuery}
             onChange={(e) => doSearch(e.target.value)}
             placeholder={t("search.placeholder")}
+            className="flex-1 bg-transparent border-none outline-none text-sm text-foreground placeholder:text-default-400"
           />
-          <button className="search-overlay-close" onClick={closeGlobalSearch}>
-            <X size={16} />
-          </button>
+          <Button isIconOnly variant="light" size="sm" onPress={closeGlobalSearch}><X size={16} /></Button>
         </div>
-        <div className="search-overlay-results">
+        <div className="flex-1 overflow-auto">
           {noteResults.length > 0 && (
-            <div className="search-group">
-              <div className="search-group-title">
+            <div>
+              <div className="flex items-center gap-1 px-3 py-1.5 text-xs text-default-500 border-b border-default-200">
                 <FileText size={12} /> {t("search.notes", { count: noteResults.length })}
               </div>
               {noteResults.map((r, i) => (
-                <div
-                  key={r.id}
-                  className={`search-result-item ${selectedIdx === i ? "selected" : ""}`}
-                  onClick={() => navigate(r)}
+                <div key={r.id}
+                  className={px-3 py-1.5 cursor-pointer text-sm }
+                  onClick={() => navigate(r)} onMouseEnter={() => setSelectedIdx(i)}
                 >
-                  <div className="search-result-title">{r.title || "Untitled"}</div>
-                  <div className="search-result-snippet">{r.snippet}</div>
+                  <div className="text-foreground">{r.title || "Untitled"}</div>
+                  <div className="text-xs text-default-400">{r.snippet}</div>
                 </div>
               ))}
             </div>
           )}
           {clipResults.length > 0 && (
-            <div className="search-group">
-              <div className="search-group-title">
+            <div>
+              <div className="flex items-center gap-1 px-3 py-1.5 text-xs text-default-500 border-b border-default-200">
                 <Clipboard size={12} /> {t("search.clipboard", { count: clipResults.length })}
               </div>
               {clipResults.map((r, i) => (
-                <div
-                  key={r.id}
-                  className={`search-result-item ${selectedIdx === noteResults.length + i ? "selected" : ""}`}
-                  onClick={() => navigate(r)}
+                <div key={r.id}
+                  className={px-3 py-1.5 cursor-pointer text-sm }
+                  onClick={() => navigate(r)} onMouseEnter={() => setSelectedIdx(noteResults.length + i)}
                 >
-                  <div className="search-result-title">{r.title}</div>
-                  <div className="search-result-snippet">{r.snippet}</div>
+                  <div className="text-foreground">{r.title}</div>
+                  <div className="text-xs text-default-400">{r.snippet}</div>
                 </div>
               ))}
             </div>
           )}
           {globalSearchQuery.length >= 2 && globalSearchResults.length === 0 && (
-            <div className="search-no-results">{t("search.noResults")}</div>
+            <div className="py-8 text-center text-sm text-default-400">{t("search.noResults")}</div>
           )}
         </div>
       </div>

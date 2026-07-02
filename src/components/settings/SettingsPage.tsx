@@ -1,5 +1,6 @@
 ﻿import { useAppStore } from "../../stores/appStore";
 import type { AppSettings } from "../../types";
+import { Button, Switch, Input } from "@heroui/react";
 import { Palette, AlignLeft, AlignRight } from "lucide-react";
 import ThemePicker from "../theme/ThemePicker";
 import { useState, useEffect } from "react";
@@ -33,108 +34,102 @@ export default function SettingsPage() {
       alert("Report saved to:\n" + p);
     }
   };
-
   const handleReset = async () => {
     if (confirm("Delete all data?")) { await factoryReset(); await loadAll(); }
   };
 
-  const positions: { value: AppSettings["panel_position"]; icon: React.ReactNode; label: string }[] = [
-    { value: "left", icon: <AlignLeft size={18} />, label: t("settings.left") },
+  const positions = [
+    { value: "left" as AppSettings["panel_position"], icon: <AlignLeft size={18} />, label: t("settings.left") },
     { value: "right", icon: <AlignRight size={18} />, label: t("settings.right") },
     { value: "float", icon: <Palette size={18} />, label: t("settings.float") },
   ];
 
   return (
-    <div className="settings-page">
-      <h2>Settings</h2>
+    <div className="p-4 max-w-[600px] mx-auto">
+      <h2 className="text-lg font-semibold mb-4">{t("settings.title", "Settings")}</h2>
 
       <CollapsibleSection title={t("settings.appearance")}>
-        <h3>{t("settings.accentColor")}</h3>
-        <ThemePicker
-          accentColor={settings.accent_color}
-          onChange={(color) => updateSettings({ accent_color: color })}
-        />
-
-        <label className="settings-toggle">
-          <input
-            type="checkbox"
-            checked={settings.animations_enabled}
-            onChange={(e) => updateSettings({ animations_enabled: e.target.checked })}
+        <div className="mt-2 mb-2">
+          <span className="text-sm font-medium">{t("settings.accentColor")}</span>
+          <ThemePicker
+            accentColor={settings.accent_color}
+            onChange={(color) => updateSettings({ accent_color: color })}
           />
-          <span>{t("settings.animations")}</span>
-        </label>
-        <h3>{t("settings.language")}</h3>
-        <LanguagePicker />
+        </div>
+        <Switch
+          isSelected={settings.animations_enabled}
+          onValueChange={(v) => updateSettings({ animations_enabled: v })}
+        >
+          {t("settings.animations")}
+        </Switch>
+        <div className="mt-2">
+          <span className="text-sm font-medium">{t("settings.language")}</span>
+          <LanguagePicker />
+        </div>
       </CollapsibleSection>
 
       <CollapsibleSection title={t("settings.panel")}>
-        <h3>{t("settings.position")}</h3>
-        <div className="settings-options">
-          {positions.map((p) => (
-            <button
-              key={p.value}
-              className={`settings-option ${settings.panel_position === p.value ? "active" : ""}`}
-              onClick={() => updateSettings({ panel_position: p.value })}
-            >
-              {p.icon}
-              <span>{p.label}</span>
-            </button>
-          ))}
+        <div className="mt-2">
+          <span className="text-sm font-medium">{t("settings.position")}</span>
+          <div className="flex gap-1 mt-1">
+            {positions.map((p) => (
+              <Button
+                key={p.value}
+                variant={settings.panel_position === p.value ? "solid" : "ghost"}
+                color={settings.panel_position === p.value ? "primary" : "default"}
+                size="sm"
+                onPress={() => updateSettings({ panel_position: p.value })}
+                startContent={p.icon}
+              >
+                {p.label}
+              </Button>
+            ))}
+          </div>
         </div>
-        <h3>{t("settings.opacity")}</h3>
-        <div className="settings-slider">
-          <input
-            type="range"
-            min="30"
-            max="100"
-            value={Math.round(settings.opacity * 100)}
-            onChange={(e) =>
-              updateSettings({ opacity: parseInt(e.target.value) / 100 })
-            }
-          />
-          <span>{Math.round(settings.opacity * 100)}%</span>
+        <div className="mt-3">
+          <span className="text-sm font-medium">{t("settings.opacity")}</span>
+          <div className="flex items-center gap-2 mt-1">
+            <input
+              type="range"
+              min={30}
+              max={100}
+              value={Math.round(settings.opacity * 100)}
+              onChange={(e) => updateSettings({ opacity: parseInt(e.target.value) / 100 })}
+              className="flex-1 accent-primary"
+            />
+            <span className="text-sm text-default-500 w-9 text-right">{Math.round(settings.opacity * 100)}%</span>
+          </div>
         </div>
       </CollapsibleSection>
 
-      <section>
-        <h3>{t("settings.autostart")}</h3>
-        <label className="settings-toggle">
-          <input
-            type="checkbox"
-            checked={settings.autostart}
-            onChange={(e) => updateSettings({ autostart: e.target.checked })}
-          />
-          <span>{t("settings.startWithWindows")}</span>
-        </label>
-      </section>
+      <div className="mt-3">
+        <Switch isSelected={settings.autostart} onValueChange={(v) => updateSettings({ autostart: v })}>
+          {t("settings.startWithWindows")}
+        </Switch>
+      </div>
 
-      <section>
-        <h3>{t("settings.shortcut")}</h3>
-        <input
-          className="settings-shortcut"
-          type="text"
-          value={settings.shortcut_toggle}
-          readOnly
-          placeholder="Alt+Space"
-        />
-      </section>
-          <section>
-        <h3>Diagnostics</h3>
-        <div className="diagnostics-info">
-          <p>OS: {sysInfo?.os} ({sysInfo?.arch})</p>
-          <p>App: v{sysInfo?.app_version}</p>
-          <button className="settings-action-btn" onClick={handleReportIssue}>Report Issue</button>
-        </div>
-      </section>
+      <div className="mt-3">
+        <span className="text-sm font-medium">{t("settings.shortcut")}</span>
+        <Input value={settings.shortcut_toggle} readOnly size="sm" className="mt-1 max-w-[200px]" />
+      </div>
 
-      <section>
-        <h3>Data</h3>
-        <div className="settings-actions">
-          <button className="settings-action-btn" onClick={handleExport}>Export Backup</button>
-          <button className="settings-action-btn" onClick={handleImport}>Import Backup</button>
-          <button className="settings-action-btn danger" onClick={handleReset}>Factory Reset</button>
+      <div className="mt-3">
+        <span className="text-sm font-medium">Diagnostics</span>
+        <div className="flex flex-col gap-1 mt-1">
+          <span className="text-xs text-default-400">OS: {sysInfo?.os} ({sysInfo?.arch})</span>
+          <span className="text-xs text-default-400">App: v{sysInfo?.app_version}</span>
+          <Button variant="ghost" size="sm" onPress={handleReportIssue} className="w-fit">Report Issue</Button>
         </div>
-      </section>
+      </div>
+
+      <div className="mt-3">
+        <span className="text-sm font-medium">Data</span>
+        <div className="flex gap-1 mt-1 flex-wrap">
+          <Button variant="ghost" size="sm" onPress={handleExport}>Export Backup</Button>
+          <Button variant="ghost" size="sm" onPress={handleImport}>Import Backup</Button>
+          <Button variant="ghost" size="sm" color="danger" onPress={handleReset}>Factory Reset</Button>
+        </div>
+      </div>
     </div>
   );
 }
