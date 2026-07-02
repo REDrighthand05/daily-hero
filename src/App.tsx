@@ -4,7 +4,6 @@ import { useUIStore } from "./stores/useUIStore";
 import { useEffect } from "react";
 import * as ipc from "./bridge/ipc";
 import "./styles/global.css";
-// components.css deleted 鈥?HeroUI handles styling via Tailwind
 
 export default function App() {
   const { settings, loadAll } = useAppStore();
@@ -23,8 +22,8 @@ export default function App() {
 
   if (!loaded)
     return (
-      <div className="app-loading">
-        <div className="loading-spinner" />
+      <div className="flex items-center justify-center h-screen w-full bg-background">
+        <div className="w-7 h-7 border-3 border-divider border-t-primary rounded-full animate-spin" />
       </div>
     );
   return <Shell />;
