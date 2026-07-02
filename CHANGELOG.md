@@ -2,16 +2,29 @@
 
 All notable changes to Daily will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [Unreleased]
-
-### Added
+## [1.1.0] - 2026-07-03
 
 ### Changed
 
-### Fixed
+- **Full UI migration to HeroUI v2** — all 23 component files rewritten
+- All components migrated from custom CSS to @heroui/react components
+- Shell.tsx: HeroUI Button + Tailwind layout
+- TitleBar.tsx: HeroUI Button for tab navigation
+- NoteEditor.tsx: HeroUI Textarea + Chip tags
+- SearchOverlay.tsx: HeroUI Modal + Input
+- SettingsPage.tsx: HeroUI Switch, Button, Slider
+- Deleted components.css (HeroUI + Tailwind cover all styling)
+- Global.css: Tailwind v4 @import + minimal scrollbar
+- main.tsx: HeroUIProvider wrapper
+
+### Added
+
+- @heroui/react, tailwindcss, @tailwindcss/vite, framer-motion
+
+### Changed
+
+- All component CSS classes replaced with Tailwind utility classes
+- Theme management via HeroUIProvider built-in dark mode
 
 ## [1.0.0] - 2026-07-03
 
@@ -19,19 +32,3 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fork from daily-app with HeroUI component library integration
 - Initial Vite + React + TypeScript + Tauri v2 project structure
-- System tray icon with Show / Settings / Quit context menu
-- Clipboard history with full-text search (SQLite-backed)
-- Quick notes with Markdown preview and export (HTML/Markdown)
-- Global search overlay (Ctrl+Shift+F)
-- i18n support (zh-CN / en-US)
-- Acrylic window effects (Windows 11)
-- Auto-updater framework (placeholder)
-- Error boundary + diagnostics panel
-- Backend command modules: backup, clipboard, diagnostics, export, markdown, notes, search, settings, tags
-- Zustand state management (appStore + uiStore)
-
-## [0.1.0] - 2026-07-02
-
-### Added
-
-- System tray icon with Show / Settings / Quit context menu
