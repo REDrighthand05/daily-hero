@@ -1,4 +1,4 @@
-﻿import { useAppStore } from "../../stores/appStore";
+import { useAppStore } from "../../stores/appStore";
 import type { AppSettings } from "../../types";
 import { Button } from "@heroui/react";
 import { Palette, AlignLeft, AlignRight } from "lucide-react";
@@ -38,10 +38,10 @@ export default function SettingsPage() {
     if (confirm("Delete all data?")) { await factoryReset(); await loadAll(); }
   };
 
-  const positions = [
+  const positions: { value: AppSettings["panel_position"]; icon: React.ReactNode; label: string }[] = [
     { value: "left" as AppSettings["panel_position"], icon: <AlignLeft size={18} />, label: t("settings.left") },
-    { value: "right", icon: <AlignRight size={18} />, label: t("settings.right") },
-    { value: "float", icon: <Palette size={18} />, label: t("settings.float") },
+    { value: "right" as AppSettings["panel_position"], icon: <AlignRight size={18} />, label: t("settings.right") },
+    { value: "float" as AppSettings["panel_position"], icon: <Palette size={18} />, label: t("settings.float") },
   ];
 
   return (
