@@ -49,9 +49,9 @@
        <React.Suspense fallback={null}><SearchOverlay /></React.Suspense>
        <TitleBar />
        {activeTab === "notes" && (
-         <div className="flex flex-col flex-1 overflow-hidden">
+         <div className="notes-container flex flex-col flex-1 overflow-hidden">
            <NoteSearch />
-           <div className="flex flex-1 overflow-hidden">
+           <div className="notes-body">
              <NoteList />
              <NoteEditor />
            </div>
@@ -65,30 +65,30 @@
            variant={activeTab === "notes" ? "solid" : "ghost"}
 
            onClick={() => setActiveTab("notes")}
-           className="flex-1 h-9 min-w-0 text-xs rounded-none border-t-2 data-[pressed]:scale-100"
+           className="tab-btn flex-1 h-9 min-w-0 text-xs rounded-none border-t-2 data-[pressed]:scale-100"
            startContent={<FileText size={14} />}
          >
-           {t("tabs.notes")}
+           <span className="tab-label">{t("tabs.notes")}</span>
          </Button>
          <Button
            size="sm"
            variant={activeTab === "clipboard" ? "solid" : "ghost"}
 
            onClick={() => setActiveTab("clipboard")}
-           className="flex-1 h-9 min-w-0 text-xs rounded-none border-t-2 data-[pressed]:scale-100"
+           className="tab-btn flex-1 h-9 min-w-0 text-xs rounded-none border-t-2 data-[pressed]:scale-100"
            startContent={<Clipboard size={14} />}
          >
-           {t("tabs.clipboard")}
+           <span className="tab-label">{t("tabs.clipboard")}</span>
          </Button>
          <Button
            size="sm"
            variant={activeTab === "settings" ? "solid" : "ghost"}
 
            onClick={() => setActiveTab("settings")}
-           className="flex-1 h-9 min-w-0 text-xs rounded-none border-t-2 data-[pressed]:scale-100"
+           className="tab-btn flex-1 h-9 min-w-0 text-xs rounded-none border-t-2 data-[pressed]:scale-100"
            startContent={<Settings size={14} />}
          >
-           {t("tabs.settings")}
+           <span className="tab-label">{t("tabs.settings")}</span>
          </Button>
        </div>
      </div>
