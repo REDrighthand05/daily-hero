@@ -1,4 +1,4 @@
- import { useState } from "react";
+﻿ import { useState } from "react";
  import TagChip from "./TagChip";
  import { useAppStore } from "../../stores/appStore";
  import type { Tag } from "../../types";
@@ -35,16 +35,16 @@
              key={tag.id}
              tag={tag}
              onClick={() => onToggle(tag.id)}
-             size="sm"
+             
            />
          ))}
          <Button
            isIconOnly
-           size="sm"
-           variant="outline"
+           
+           variant="bordered"
            className="w-5 h-5 min-w-0 rounded-lg border-dashed text-foreground-400"
            onClick={() => setShowAdd(!showAdd)}
-           title="New tag"
+
          >
            <Plus size={12} />
          </Button>
@@ -52,8 +52,8 @@
        {showAdd && (
          <div className="mt-1">
            <Input
-             size="sm"
-             variant="flat"
+             
+             
              autoFocus
              value={newName}
              onChange={(e) => setNewName(e.target.value)}
@@ -66,3 +66,4 @@
      </div>
    );
  }
+

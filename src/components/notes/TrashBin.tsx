@@ -28,7 +28,7 @@
      <div>
        <div className="flex items-center justify-between px-3 py-1.5 text-xs text-foreground-400 border-b border-divider">
          <span>{t("notes.deletedCount", { count: deleted.length })}</span>
-         <Button size="sm" variant="light" color="danger" className="h-6 min-w-0 text-xs px-2 gap-1" startContent={<AlertTriangle size={12} />} onClick={handlePurge} title={t("notes.purgeAll")}>
+         <Button size="sm" variant="ghost" color="danger" className="h-6 min-w-0 text-xs px-2 gap-1" startContent={<AlertTriangle size={12} />} onClick={handlePurge} title={t("notes.purgeAll")}>
            Purge all
          </Button>
        </div>
@@ -39,10 +39,10 @@
                {note.content.slice(0, 50) || t("notes.empty")}
              </span>
              <div className="flex gap-1.5">
-               <Button isIconOnly size="sm" variant="light" className="w-6 h-6 min-w-0 text-foreground-400" onClick={() => restoreNote(note.id)} title={t("notes.restore")}>
+               <Button isIconOnly size="sm" variant="ghost" className="w-6 h-6 min-w-0 text-foreground-400" onClick={() => restoreNote(note.id)} title={t("notes.restore")}>
                  <RotateCcw size={12} />
                </Button>
-               <Button isIconOnly size="sm" variant="light" className="w-6 h-6 min-w-0 text-foreground-400" onClick={() => deleteNote(note.id)} title={t("notes.deletePermanent")}>
+               <Button isIconOnly size="sm" variant="ghost" className="w-6 h-6 min-w-0 text-foreground-400" onClick={() => deleteNote(note.id)} title={t("notes.deletePermanent")}>
                  <Trash2 size={12} />
                </Button>
              </div>

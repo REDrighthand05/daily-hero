@@ -1,44 +1,49 @@
- import type { Note } from "../../types";
- import type { ExportFormat } from "../../types";
- import { writeFile } from "../../bridge/ipc";
- import { Download } from "lucide-react";
- import { save } from "@tauri-apps/plugin-dialog";
- import { Button, Dropdown } from "@heroui/react";
- 
- interface Props {
-   note: Note;
- }
- 
- export default function ExportMenu({ note }: Props) {
-   const handleExport = async (format: ExportFormat) => {
-     const ext = format === "markdown" ? "md" : "txt";
-     const defaultName = note.content.slice(0, 30).replace(/\s+/g, "_") || "note";
-     try {
-       const path = await save({
-         filters: [{ name: format === "markdown" ? "Markdown" : "Text", extensions: [ext] }],
-         defaultPath: `${defaultName}.${ext}`,
-       });
-       if (path) {
-         await writeFile(path, note.content);
-       }
-     } catch (e) {
-       console.error("Export failed", e);
-     }
-   };
- 
-   return (
-     <Dropdown.Root>
-       <Dropdown.Trigger>
-         <Button isIconOnly size="sm" variant="light" className="w-7 h-7 min-w-0 text-foreground-400" title="Export note">
-           <Download size={14} />
-         </Button>
-       </Dropdown.Trigger>
-       <Dropdown.Popover>
-         <Dropdown.Menu onAction={(key) => handleExport(key as ExportFormat)}>
-           <Dropdown.Item id="markdown">Export as Markdown</Dropdown.Item>
-           <Dropdown.Item id="text">Export as Text</Dropdown.Item>
-         </Dropdown.Menu>
-       </Dropdown.Popover>
-     </Dropdown.Root>
-   );
- }
+﻿import { useTranslation } from "react-i18next";
+import type { Note } from "../../types";
+// export functions;
+import { Button } from "@heroui/react";
+import { useEffect, useRef, useState } from "react";
+import { Download } from "lucide-react";
+
+interface Props {
+  note: Note;
+}
+
+export default function ExportMenu({ note }: Props) {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    if (open) document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [open]);
+
+  return (
+    <div ref={ref} className="relative inline-block">
+      <Button size="sm" variant="ghost" onPress={() => setOpen(!open)}>
+        <Download size={14} />
+      </Button>
+      {open && (
+        <div className="absolute left-0 top-full mt-1 z-50 min-w-[140px] rounded-lg border border-default-200 bg-background shadow-lg py-1">
+          <button
+            className="w-full px-3 py-1.5 text-left text-sm hover:bg-default-100 text-foreground"
+            onClick={async () => { await console.log("Export markdown:", note.id); setOpen(false); }}
+          >
+            {t("notes.exportMarkdown", "Export .md")}
+          </button>
+          <button
+            className="w-full px-3 py-1.5 text-left text-sm hover:bg-default-100 text-foreground"
+            onClick={async () => { await console.log("Export html:", note.id); setOpen(false); }}
+          >
+            {t("notes.exportHtml", "Export .html")}
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+

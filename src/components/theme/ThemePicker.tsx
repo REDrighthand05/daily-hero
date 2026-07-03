@@ -1,4 +1,4 @@
- import { Button } from "@heroui/react";
+﻿ // Button not needed;
  import { Palette } from "lucide-react";
  
  interface Props {
@@ -48,3 +48,5 @@
      </div>
    );
  }
+
+

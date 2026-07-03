@@ -82,7 +82,7 @@
          {noteTags.map((tag) => (
            <TagChip key={tag.id} tag={tag} onRemove={() => handleTagToggle(tag.id)} />
          ))}
-         <Button size="sm" variant={showTagPicker ? "solid" : "outline"} color={showTagPicker ? "primary" : "default"} className="h-6 min-w-0 text-xs px-2 rounded-full border-dashed" onPress={() => setShowTagPicker(!showTagPicker)}>
+         <Button size="sm" variant={showTagPicker ? "solid" : "bordered"} className="h-6 min-w-0 text-xs px-2 rounded-full border-dashed" onPress={() => setShowTagPicker(!showTagPicker)}>
            {showTagPicker ? t("common.done") : t("tags.addTags")}
          </Button>
        </div>

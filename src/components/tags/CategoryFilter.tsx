@@ -18,8 +18,8 @@
      <div className="flex flex-wrap gap-1.5 px-3 py-1.5 border-b border-divider">
        <Button
          size="sm"
-         variant={!selectedTagId ? "solid" : "outline"}
-         color={!selectedTagId ? "primary" : "default"}
+         variant={!selectedTagId ? "solid" : "bordered"}
+
          onClick={() => setSelectedTagId(null)}
          className="h-6 min-w-0 text-xs px-2"
        >
@@ -31,8 +31,8 @@
            <Button
              key={tag.id}
              size="sm"
-             variant={selectedTagId === tag.id ? "solid" : "outline"}
-             color={selectedTagId === tag.id ? "primary" : "default"}
+             variant={selectedTagId === tag.id ? "solid" : "bordered"}
+
              onClick={() => setSelectedTagId(tag.id === selectedTagId ? null : tag.id)}
              className="h-6 min-w-0 text-xs px-2 gap-1"
            >

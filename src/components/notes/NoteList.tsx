@@ -79,7 +79,7 @@
        <ArchiveToggle />
        <div className="flex items-center justify-between px-3 py-1.5 border-b border-divider">
          <span className="text-[11px] text-foreground-400">{showArchived ? t("notes.archivedCount", { count: sorted.length }) : t("notes.count", { count: sorted.length })}</span>
-         <Button isIconOnly size="sm" variant="light" className="w-6 h-6 min-w-0 text-foreground-400" onClick={handleNew} title={t("notes.newNote")}>
+         <Button isIconOnly size="sm" variant="ghost" className="w-6 h-6 min-w-0 text-foreground-400" onClick={handleNew} title={t("notes.newNote")}>
            <Plus size={16} />
          </Button>
        </div>
@@ -130,22 +130,22 @@
    return (
      <div className={`flex items-center border-b border-divider group ${note.archived ? "opacity-60" : ""}`}>
        <div className="flex flex-col items-center gap-0 opacity-0 group-hover:opacity-100 transition-opacity duration-100 px-0.5">
-         <Button isIconOnly size="sm" variant="light" className="w-4 h-3 min-w-0 text-foreground-400" onPress={() => onMove(note.id, "up")} title="Move up">
+         <Button isIconOnly size="sm" variant="ghost" className="w-4 h-3 min-w-0 text-foreground-400" onPress={() => onMove(note.id, "up")} title="Move up">
            <ChevronUp size={10} />
          </Button>
-         <Button isIconOnly size="sm" variant="light" className="w-4 h-3 min-w-0 text-foreground-400" onPress={() => onMove(note.id, "down")} title="Move down">
+         <Button isIconOnly size="sm" variant="ghost" className="w-4 h-3 min-w-0 text-foreground-400" onPress={() => onMove(note.id, "down")} title="Move down">
            <ChevronDown size={10} />
          </Button>
        </div>
-       <Button variant="light" size="sm" className="flex-1 flex items-center gap-1.5 px-3 py-2 text-left min-w-0 rounded-none justify-start h-auto" onPress={togglePin}>
+       <Button variant="ghost" size="sm" className="flex-1 flex items-center gap-1.5 px-3 py-2 text-left min-w-0 rounded-none justify-start h-auto" onPress={togglePin}>
          <Pin size={12} className={`shrink-0 ${note.pinned ? "text-primary" : "text-foreground-400"}`} />
          <span className="text-xs text-foreground-400 truncate">{text}</span>
        </Button>
        <div className="flex gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity duration-100">
-         <Button isIconOnly size="sm" variant="light" className="w-6 h-6 min-w-0 text-foreground-400" onPress={() => onDelete(note.id)} title="Move to trash">
+         <Button isIconOnly size="sm" variant="ghost" className="w-6 h-6 min-w-0 text-foreground-400" onPress={() => onDelete(note.id)} title="Move to trash">
            <Trash2 size={12} />
          </Button>
-         <Button isIconOnly size="sm" variant="light" className="w-6 h-6 min-w-0 text-foreground-400" onPress={() => onArchive(note.id)} title={showArchived ? "Unarchive" : "Archive"}>
+         <Button isIconOnly size="sm" variant="ghost" className="w-6 h-6 min-w-0 text-foreground-400" onPress={() => onArchive(note.id)} title={showArchived ? "Unarchive" : "Archive"}>
            <Archive size={12} />
          </Button>
        </div>

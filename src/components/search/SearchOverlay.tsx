@@ -1,9 +1,9 @@
-﻿import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useUIStore } from "../../stores/useUIStore";
 import { globalSearch } from "../../bridge/ipc";
 import type { SearchResultItem } from "../../types";
-import { Modal, Input, Button } from "@heroui/react";
+ import { Button } from "@heroui/react";
 import { Search, FileText, Clipboard, X } from "lucide-react";
 
 export default function SearchOverlay() {
@@ -67,7 +67,7 @@ export default function SearchOverlay() {
             placeholder={t("search.placeholder")}
             className="flex-1 bg-transparent border-none outline-none text-sm text-foreground placeholder:text-default-400"
           />
-          <Button isIconOnly variant="light" size="sm" onPress={closeGlobalSearch}><X size={16} /></Button>
+          <Button isIconOnly variant="ghost" size="sm" onPress={closeGlobalSearch}><X size={16} /></Button>
         </div>
         <div className="flex-1 overflow-auto">
           {noteResults.length > 0 && (
@@ -77,7 +77,7 @@ export default function SearchOverlay() {
               </div>
               {noteResults.map((r, i) => (
                 <div key={r.id}
-                  className={px-3 py-1.5 cursor-pointer text-sm }
+                 className="px-3 py-1.5 cursor-pointer text-sm"
                   onClick={() => navigate(r)} onMouseEnter={() => setSelectedIdx(i)}
                 >
                   <div className="text-foreground">{r.title || "Untitled"}</div>
@@ -93,7 +93,7 @@ export default function SearchOverlay() {
               </div>
               {clipResults.map((r, i) => (
                 <div key={r.id}
-                  className={px-3 py-1.5 cursor-pointer text-sm }
+                 className="px-3 py-1.5 cursor-pointer text-sm"
                   onClick={() => navigate(r)} onMouseEnter={() => setSelectedIdx(noteResults.length + i)}
                 >
                   <div className="text-foreground">{r.title}</div>

@@ -1,4 +1,4 @@
-﻿import type { ClipboardEntry as CEntry } from "../../types";
+import type { ClipboardEntry as CEntry } from "../../types";
 import { Star, Trash2, Clipboard } from "lucide-react";
 import { writeClipboard } from "../../bridge/ipc";
 import { Button } from "@heroui/react";
@@ -26,13 +26,13 @@ export default function ClipboardEntryComponent({ entry, onDelete, onStar, onCli
           {preview}{entry.content.length > 80 ? "..." : ""}
         </span>
         <div className="flex gap-0.5 opacity-0 group-hover:opacity-100 shrink-0 transition-opacity duration-100">
-          <Button isIconOnly size="sm" variant="light" className="w-6 h-6 min-w-0 text-foreground-400" onPress={() => handleCopy()} title="Copy">
+          <Button isIconOnly size="sm" variant="ghost" className="w-6 h-6 min-w-0 text-foreground-400" onPress={() => handleCopy()} title="Copy">
             <Clipboard size={12} />
           </Button>
-          <Button isIconOnly size="sm" variant="light" className={`w-6 h-6 min-w-0 ${entry.starred ? "text-warning" : "text-foreground-400"}`} onPress={() => onStar(entry.id, !entry.starred)} title={entry.starred ? "Unstar" : "Star"}>
+          <Button isIconOnly size="sm" variant="ghost" className={`w-6 h-6 min-w-0 ${entry.starred ? "text-warning" : "text-foreground-400"}`} onPress={() => onStar(entry.id, !entry.starred)} title={entry.starred ? "Unstar" : "Star"}>
             <Star size={12} />
           </Button>
-          <Button isIconOnly size="sm" variant="light" className="w-6 h-6 min-w-0 text-foreground-400" onPress={() => onDelete(entry.id)} title="Delete">
+          <Button isIconOnly size="sm" variant="ghost" className="w-6 h-6 min-w-0 text-foreground-400" onPress={() => onDelete(entry.id)} title="Delete">
             <Trash2 size={12} />
           </Button>
         </div>

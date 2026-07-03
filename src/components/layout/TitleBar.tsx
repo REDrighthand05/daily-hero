@@ -24,7 +24,7 @@
              key={tab.id}
              size="sm"
              variant={activeTab === tab.id ? "solid" : "ghost"}
-             color={activeTab === tab.id ? "primary" : "default"}
+
              onClick={() => setActiveTab(tab.id)}
              title={tab.label}
              className="h-7 min-w-0 text-xs px-2 gap-1.5 rounded-md"

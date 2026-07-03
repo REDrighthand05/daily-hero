@@ -11,8 +11,8 @@
      <div className="flex items-center gap-3 px-3 py-2 border-b border-divider">
        <Search size={14} className="text-foreground-400 shrink-0" />
        <Input
-         variant="flat"
-         size="sm"
+         
+         
          placeholder={t("notes.search")}
          value={searchQuery}
          onChange={(e) => setSearchQuery(e.target.value)}

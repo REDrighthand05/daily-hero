@@ -22,8 +22,8 @@
          <Button
            key={lang.code}
            size="sm"
-           variant={settings.language === lang.code ? "solid" : "outline"}
-           color={settings.language === lang.code ? "primary" : "default"}
+           variant={settings.language === lang.code ? "solid" : "bordered"}
+
            onClick={() => handleChange(lang.code)}
          >
            {lang.label}

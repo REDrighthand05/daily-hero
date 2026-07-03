@@ -11,8 +11,8 @@
      <div className="flex items-center gap-2 px-3 py-2 border-b border-divider">
        <Search size={14} className="text-foreground-500 shrink-0" />
        <Input
-         variant="flat"
-         size="sm"
+         
+         
          value={clipboardSearchQuery}
          onChange={(e) => setClipboardSearchQuery(e.target.value)}
          placeholder={t("clipboard.search")}

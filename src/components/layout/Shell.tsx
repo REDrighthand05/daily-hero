@@ -63,7 +63,7 @@
          <Button
            size="sm"
            variant={activeTab === "notes" ? "solid" : "ghost"}
-           color={activeTab === "notes" ? "primary" : "default"}
+
            onClick={() => setActiveTab("notes")}
            className="flex-1 h-9 min-w-0 text-xs rounded-none border-t-2 data-[pressed]:scale-100"
            startContent={<FileText size={14} />}
@@ -73,7 +73,7 @@
          <Button
            size="sm"
            variant={activeTab === "clipboard" ? "solid" : "ghost"}
-           color={activeTab === "clipboard" ? "primary" : "default"}
+
            onClick={() => setActiveTab("clipboard")}
            className="flex-1 h-9 min-w-0 text-xs rounded-none border-t-2 data-[pressed]:scale-100"
            startContent={<Clipboard size={14} />}
@@ -83,7 +83,7 @@
          <Button
            size="sm"
            variant={activeTab === "settings" ? "solid" : "ghost"}
-           color={activeTab === "settings" ? "primary" : "default"}
+
            onClick={() => setActiveTab("settings")}
            className="flex-1 h-9 min-w-0 text-xs rounded-none border-t-2 data-[pressed]:scale-100"
            startContent={<Settings size={14} />}

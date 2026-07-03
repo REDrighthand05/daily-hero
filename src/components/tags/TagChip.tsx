@@ -1,4 +1,4 @@
- import type { Tag } from "../../types";
+﻿ import type { Tag } from "../../types";
  import { Chip } from "@heroui/react";
  import { X } from "lucide-react";
  
@@ -14,7 +14,7 @@
    return (
      <Chip
        size={size}
-       variant="outline"
+       variant="bordered"
        style={{ borderColor: color, color }}
        className="cursor-pointer"
        onClick={onClick}
@@ -31,3 +31,4 @@
      </Chip>
    );
  }
+

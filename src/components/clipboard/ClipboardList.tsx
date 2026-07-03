@@ -65,7 +65,7 @@
          <span className="text-[11px]">{filtered.length}</span>
          <Button
            size="sm"
-           variant="light"
+           variant="ghost"
            color="danger"
            className="h-6 min-w-0 text-xs px-2 gap-1"
            startContent={<Trash2 size={12} />}

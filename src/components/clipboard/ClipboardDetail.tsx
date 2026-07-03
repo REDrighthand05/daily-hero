@@ -20,17 +20,17 @@
    return (
      <div className="flex flex-col h-full">
        <div className="flex items-center justify-between px-3 py-2 border-b border-divider">
-         <Button size="sm" variant="light" className="h-7 min-w-0 text-xs gap-1" startContent={<ArrowLeft size={14} />} onClick={onBack}>
+         <Button size="sm" variant="ghost" className="h-7 min-w-0 text-xs gap-1" startContent={<ArrowLeft size={14} />} onClick={onBack}>
            Back
          </Button>
          <div className="flex gap-0.5">
-           <Button isIconOnly size="sm" variant="light" className="w-7 h-7 min-w-0 text-foreground-400" onClick={handleCopy} title={t("clipboard.copy")}>
+           <Button isIconOnly size="sm" variant="ghost" className="w-7 h-7 min-w-0 text-foreground-400" onClick={handleCopy} title={t("clipboard.copy")}>
              <Clipboard size={14} />
            </Button>
-           <Button isIconOnly size="sm" variant="light" className={`w-7 h-7 min-w-0 ${entry.starred ? "text-warning" : "text-foreground-400"}`} onClick={() => onStar(entry.id, !entry.starred)} title={entry.starred ? t("clipboard.unstar") : t("clipboard.star")}>
+           <Button isIconOnly size="sm" variant="ghost" className={`w-7 h-7 min-w-0 ${entry.starred ? "text-warning" : "text-foreground-400"}`} onClick={() => onStar(entry.id, !entry.starred)} title={entry.starred ? t("clipboard.unstar") : t("clipboard.star")}>
              <Star size={14} />
            </Button>
-           <Button isIconOnly size="sm" variant="light" className="w-7 h-7 min-w-0 text-foreground-400" onClick={() => onDelete(entry.id)} title={t("common.delete")}>
+           <Button isIconOnly size="sm" variant="ghost" className="w-7 h-7 min-w-0 text-foreground-400" onClick={() => onDelete(entry.id)} title={t("common.delete")}>
              <Trash2 size={14} />
            </Button>
          </div>
